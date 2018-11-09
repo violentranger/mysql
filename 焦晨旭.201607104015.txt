@@ -1,0 +1,124 @@
+Microsoft Windows [版本 10.0.17134.345]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\WINDOWS\system32>net start mysql;
+服务名无效。
+
+请键入 NET HELPMSG 2185 以获得更多的帮助。
+
+
+C:\WINDOWS\system32>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 42
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| shopping           |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use shopping;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| countries          |
+| departments        |
+| dept               |
+| emp                |
+| employees          |
+| job_history        |
+| jobs               |
+| locations          |
+| regions            |
+| salgrade           |
+| shopping           |
+| shopping2          |
++--------------------+
+12 rows in set (0.00 sec)
+
+mysql> select * from shopping;
++----+--------+-------+----------+
+| id | name   | xihao | yuanwang |
++----+--------+-------+----------+
+|  1 | chenxu | NULL  | NULL     |
+|  2 | 1      | 100   | 1        |
+|  3 | erge   | 200   | 0        |
++----+--------+-------+----------+
+3 rows in set (0.01 sec)
+
+mysql> select * from shopping2;
++----+--------+------+
+| id | name   | age  |
++----+--------+------+
+|  1 | chenxu | NULL |
++----+--------+------+
+1 row in set (0.01 sec)
+
+mysql> select distinct name from shopping;
++--------+
+| name   |
++--------+
+| chenxu |
+| 1      |
+| erge   |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from shopping order by xihao;
++----+--------+-------+----------+
+| id | name   | xihao | yuanwang |
++----+--------+-------+----------+
+|  1 | chenxu | NULL  | NULL     |
+|  2 | 1      | 100   | 1        |
+|  3 | erge   | 200   | 0        |
++----+--------+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select name,sum(name) from shopping group by name;
++--------+-----------+
+| name   | sum(name) |
++--------+-----------+
+| chenxu |         0 |
+| 1      |         1 |
+| erge   |         0 |
++--------+-----------+
+3 rows in set, 2 warnings (0.00 sec)
+
+
+mysql> select * from shopping,shopping2
+    -> where shopping.name=shopping2.name;
++----+--------+-------+----------+----+--------+------+
+| id | name   | xihao | yuanwang | id | name   | age  |
++----+--------+-------+----------+----+--------+------+
+|  1 | chenxu | NULL  | NULL     |  1 | chenxu | NULL |
++----+--------+-------+----------+----+--------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from shopping left join shopping2 on shopping.name=shopping2.name;
++----+--------+-------+----------+------+--------+------+
+| id | name   | xihao | yuanwang | id   | name   | age  |
++----+--------+-------+----------+------+--------+------+
+|  1 | chenxu | NULL  | NULL     |    1 | chenxu | NULL |
+|  2 | 1      | 100   | 1        | NULL | NULL   | NULL |
+|  3 | erge   | 200   | 0        | NULL | NULL   | NULL |
++----+--------+-------+----------+------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql>
