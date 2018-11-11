@@ -1,0 +1,144 @@
+Warcraft 魔兽
+avenger 复仇者123
+Microsoft Windows [版本 10.0.17134.345]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\WINDOWS\system32>net start mysql80;
+服务名无效。
+
+请键入 NET HELPMSG 2185 以获得更多的帮助。
+
+C:\WINDOWS\system32>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 50
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| shopping           |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> use shopping;
+Database changed
+
+mysql> show tables;
++--------------------+
+| Tables_in_shopping |
++--------------------+
+| countries          |
+| departments        |
+| dept               |
+| douyinc            |
+| douyinusa          |
+| emp                |
+| film               |
+| locations          |
+| regions            |
+| salgrade           |
+| shopping           |
++--------------------+
+11 rows in set (0.00 sec)
+
+
+
+
+
+mysql>  create table film(id int(20) auto_increment primary key,name varchar(20),yaer varchar(20),
+    ->  daoyan varchar(10),pingfen int(10));
+Query OK, 0 rows affected (0.09 sec)
+
+
+mysql> desc film;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int(20)     | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(20) | YES  |     | NULL    |                |
+| year    | varchar(20) | YES  |     | NULL    |                |
+| daoyan  | varchar(10) | YES  |     | NULL    |                |
+| pingfen | int(10)     | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into film(name,year,daoyan,pingfen) values("avenger1","2012","manv","8");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into film(name,year,daoyan,pingfen) values("avenger2","2014","manv","8");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into film(name,year,daoyan,pingfen) values("avenger3","2018","manv","8");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into film(name,year,daoyan,pingfen) values("warcraft","2016","youxi","8");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from film;
++----+----------+------+--------+---------+
+| id | name     | year | daoyan | pingfen |
++----+----------+------+--------+---------+
+|  1 | avenger1 | 2012 | manv   |       8 |
+|  2 | avenger2 | 2014 | manv   |       8 |
+|  3 | avenger3 | 2018 | manv   |       8 |
+|  4 | warcraft | 2016 | youxi  |       8 |
++----+----------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select daoyan like "%man%" from film;
++---------------------+
+| daoyan like "%man%" |
++---------------------+
+|                   1 |
+|                   1 |
+|                   1 |
+|                   0 |
++---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select name like "%avenger%" from film;
++-----------------------+
+| name like "%avenger%" |
++-----------------------+
+|                     1 |
+|                     1 |
+|                     1 |
+|                     0 |
++-----------------------+
+4 rows in set (0.00 sec)
+
+Empty set (0.00 sec)
+
+mysql> select * from film where year="2012";
++----+----------+------+--------+---------+
+| id | name     | year | daoyan | pingfen |
++----+----------+------+--------+---------+
+|  1 | avenger1 | 2012 | manv   |       8 |
++----+----------+------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from film order by pingfen;
++----+----------+------+--------+---------+
+| id | name     | year | daoyan | pingfen |
++----+----------+------+--------+---------+
+|  1 | avenger1 | 2012 | manv   |       8 |
+|  2 | avenger2 | 2014 | manv   |       8 |
+|  3 | avenger3 | 2018 | manv   |       8 |
+|  4 | warcraft | 2016 | youxi  |       8 |
++----+----------+------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
