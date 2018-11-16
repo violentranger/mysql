@@ -1,0 +1,58 @@
+ create table yonghu(
+    ->yonghu_id int auto_increment primary key not null,
+    -> yonghu_name varchar(20) not null,
+    -> mima varchar(20) not null)
+    -> engine=innodb default charset=utf8;
+Query OK, 0 rows affected, 1 warning (0.10 sec)
+
+mysql> create table zhuangbei(
+    -> yonghu_id int auto_increment primary key not null,
+    -> zhuangbei_name varchar(20) not null,
+    -> zhuangbei_jiage varchar(20) not null,
+    ->  key`idx_fk_yonghu_id`(yonghu_id),
+    -> constraint`fk_yonghu_zhuangbei`foreign key(yonghu_id)
+    ->  references yonghu(yonghu_id)
+    -> on delete restrict on update cascade)
+    -> engine=innodb default charset=utf8;
+Query OK, 0 rows affected, 1 warning (0.15 sec)
+
+mysql>insert into yonghu(yonghu_name,mima)values("xiaoxiannv","666"),("luoli","999");
+Query OK, 2 rows affected (0.01 sec)
+mysql> insert into zhuangbei(yonghu_id,zhuangbei_name,zhuangbei_jiage)values(2,"wujin",3600),(3,"diandao",2600);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from zhuangbei;
++-----------+----------------+-----------------+
+| yonghu_id | zhuangbei_name | zhuangbei_jiage |
++-----------+----------------+-----------------+
+|         2 | wujin          | 3600            |
+|         3 | diandao        | 2600            |
++-----------+----------------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> update yonghu set yonghu_id=100 where yonghu_id=2;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from zhuangbei where yonghu_id=100;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from yonghu;
++-----------+-------------+------+
+| yonghu_id | yonghu_name | mima |
++-----------+-------------+------+
+|         3 | luoli       | 999  |
+|       100 | xiaoxiannv  | 666  |
++-----------+-------------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+mysql> show table status like"zhuangbei";
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+---------------------+------------+-----------------+----------+----------------+---------+
+| Name      | Engine | Version | Row_format | Rows | Avg_row_length | Data_length | Max_data_length | Index_length | Data_free | Auto_increment | Create_time         | Update_time         | Check_time | Collation       | Checksum | Create_options | Comment |
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+---------------------+------------+-----------------+----------+----------------+---------+
+| zhuangbei | InnoDB |      10 | Dynamic    |    1 |          16384 |       16384 |               0 |        16384 |         0 |              4 | 2018-11-16 10:59:48 | 2018-11-16 13:24:34 | NULL       | utf8_general_ci |     NULL |                |         |
++-----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+---------------------+------------+-----------------+----------+----------------+---------+
+1 row in set (0.04 sec)
